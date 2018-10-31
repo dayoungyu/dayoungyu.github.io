@@ -1,0 +1,49 @@
+---
+title: "plotly"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(viridis)
+library(p8105.datasets)
+library(plotly)
+```
+
+
+
+```{r}
+set.seed(3)
+
+ny_noaa_sample_id = 
+  ny_noaa %>%
+  distinct(id) %>%
+  sample_n(15)
+
+ny_noaa_sample = 
+  ny_noaa %>%
+  filter(id %in% ny_noaa_sample_id$id)
+
+
+ny_noaa_sample %>%
+  filter(prcp != 0, !is.na(prcp)) %>% 
+  group_by(id) %>%
+  plot_ly(y = ~prcp, color = ~id, type = "box", colors = "Set2")
+  
+```
+
+
+A random sample of 10 NY weather stations were selected. Boxplots wer constructed to observe the distribution of precipitation recorded at each station. Observations with missing precipitation data or prcp = 0 were filtered out to display only days when it rained. 
+
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
