@@ -6,5 +6,5 @@ title: "Dayoung Yu"
 
 This website serves as a personal website for Dayoung Yu. Currently, you can access Dayoung's resume, email, and GitHub account using the navigation bar. In addition, this website is hosting assignments for Dayoung's data science course. Through the assignments tab, you can access code and plots visualing data from "The Instacart Online Grocery Shopping Dataset 2017", that can be accessed from [here](https://www.instacart.com/datasets/grocery-shopping-2017).
 
-<img src = "images/headshot.jpg" style = "width:50%", "height:50%">
+<img src = "images/headshot.jpg" style = "width:30%", "height:30%">
 
