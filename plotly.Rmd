@@ -3,16 +3,15 @@ title: "plotly"
 output: html_document
 ---
 
-```{r}
+```{r include = FALSE}
 library(tidyverse)
-library(viridis)
 library(p8105.datasets)
 library(plotly)
 ```
 
 Bar plot of the top items bought in the 5 most popular departments:
 
-```{r}
+```{r message = FALSE, warning = FALSE}
 top_department = instacart %>%
   group_by(department) %>%
   summarize(n = n()) %>%
@@ -32,13 +31,27 @@ instacart_sample = instacart %>%
 product_list %>%
   mutate(product_name = fct_reorder(product_name, n)) %>%
   plot_ly(x = ~product_name, y = ~n, color = ~product_name, type = "bar") %>%
-  layout(yaxis = list(title = 'Number of orders'))
+  layout(yaxis = list(title = 'Number of orders'),
+         xaxis = list(title = "Product name"))
+```
+
+
+Distribution of when the above products were ordered during the day:
+
+```{r message = FALSE, warning = FALSE}
+instacart_sample %>%
+  group_by(product_name, order_hour_of_day) %>%
+  summarize(n = n()) %>%
+  plot_ly(x = ~order_hour_of_day, y = ~n, color = ~product_name, type = 'scatter', mode = 'lines') %>%
+  layout(xaxis = list(title = "Hour of day"))
+  
+
 ```
 
 
 Boxplot of hour of day of when products were bought per day of week:
 
-```{r}
+```{r message = FALSE, warning = FALSE}
 instacart %>%
   mutate(order_dow = factor(order_dow),
          order_dow = recode(order_dow, "0" = "Sun", "1" = "Mon", "2" = "Tues", 
@@ -47,7 +60,6 @@ instacart %>%
   plot_ly(y = ~order_hour_of_day, color = ~order_dow, type = "box") %>%
   layout(yaxis = list(title = "Hour of day"))
 ```
-
 
 
 
