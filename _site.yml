@@ -3,8 +3,12 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: Assignments
+    - text: Menu
       menu:
+      - text: Resume
+        href: resume.html
+      - text: Plotly
+        href: plotly.html
       - text: Dashboard
         href: dashboard_template.html
     - text: "About"
