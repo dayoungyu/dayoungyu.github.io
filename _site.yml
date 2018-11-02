@@ -3,15 +3,17 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
+    - text: Assignments
+      menu:
+      - text: Dashboard
+        href: dashboard_template.html
     - text: "About"
       href: about.html
     - icon: fa-envelope fa-lg
       href: mailto:dry2115@cumc.columbia.edu
     - icon: fa-github fa-lg
       href: http://github.com/dayoungyu/
-      menu:
-      - text: Dashboard
-        href: dashboard_template.html
+
 
 output:
   html_document:
