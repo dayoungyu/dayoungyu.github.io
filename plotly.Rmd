@@ -30,7 +30,7 @@ instacart_sample = instacart %>%
 
 product_list %>%
   mutate(product_name = fct_reorder(product_name, n)) %>%
-  plot_ly(x = ~product_name, y = ~n, color = ~product_name, type = "bar") %>%
+  plot_ly(x = ~product_name, y = ~n, color = ~department, type = "bar") %>%
   layout(yaxis = list(title = 'Number of orders'),
          xaxis = list(title = "Product name"))
 ```

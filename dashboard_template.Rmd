@@ -13,10 +13,10 @@ library(plotly)
 library(flexdashboard)
 ```
 
-Column {data-width=650}
+Column {data-width=600}
 -----------------------------------------------------------------------
 
-### Chart A
+### Top 5 most bought products in the top 5 departments
 
 ```{r}
 top_department = instacart %>%
@@ -37,15 +37,13 @@ instacart_sample = instacart %>%
 
 product_list %>%
   mutate(product_name = fct_reorder(product_name, n)) %>%
-  plot_ly(x = ~product_name, y = ~n, color = ~product_name, type = "bar") %>%
+  plot_ly(x = ~product_name, y = ~n, color = ~department, type = "bar") %>%
   layout(yaxis = list(title = 'Number of orders'),
          xaxis = list(title = "Product name"))
 ```
 
-Column {data-width=350}
------------------------------------------------------------------------
 
-### Chart B
+### Distribution of the count of products bought throughout the day
 
 ```{r}
 instacart_sample %>%
@@ -56,7 +54,13 @@ instacart_sample %>%
   
 ```
 
-### Chart C
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+
+
+### Popular times of order placement per day
 
 ```{r}
 instacart %>%
