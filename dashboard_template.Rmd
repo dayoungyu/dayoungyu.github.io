@@ -7,12 +7,9 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-library(flexdashboard)
-```
-
-
-
-```{r setup, include=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
 library(flexdashboard)
 ```
 
@@ -22,7 +19,27 @@ Column {data-width=650}
 ### Chart A
 
 ```{r}
+top_department = instacart %>%
+  group_by(department) %>%
+  summarize(n = n()) %>%
+  arrange(desc(n)) %>%
+  head(5)
 
+product_list = instacart %>%
+  filter(department %in% top_department$department) %>%
+  group_by(department, product_name) %>%
+  summarize(n = n()) %>%
+  group_by(department) %>%
+  top_n(n = 5)
+
+instacart_sample = instacart %>%
+  filter(product_name %in% product_list$product_name)
+
+product_list %>%
+  mutate(product_name = fct_reorder(product_name, n)) %>%
+  plot_ly(x = ~product_name, y = ~n, color = ~product_name, type = "bar") %>%
+  layout(yaxis = list(title = 'Number of orders'),
+         xaxis = list(title = "Product name"))
 ```
 
 Column {data-width=350}
@@ -31,12 +48,23 @@ Column {data-width=350}
 ### Chart B
 
 ```{r}
-
+instacart_sample %>%
+  group_by(product_name, order_hour_of_day) %>%
+  summarize(n = n()) %>%
+  plot_ly(x = ~order_hour_of_day, y = ~n, color = ~product_name, type = 'scatter', mode = 'lines') %>%
+  layout(xaxis = list(title = "Hour of day"))
+  
 ```
 
 ### Chart C
 
 ```{r}
-
+instacart %>%
+  mutate(order_dow = factor(order_dow),
+         order_dow = recode(order_dow, "0" = "Sun", "1" = "Mon", "2" = "Tues", 
+                            "3" = "Wed", "4" = "Thurs", "5" = "Fri", "6" = "Sat")
+  ) %>%
+  plot_ly(y = ~order_hour_of_day, color = ~order_dow, type = "box") %>%
+  layout(yaxis = list(title = "Hour of day"))
 ```
 
