@@ -10,37 +10,43 @@ library(p8105.datasets)
 library(plotly)
 ```
 
-
+Bar plot of the top items bought in the 5 most popular departments:
 
 ```{r}
-set.seed(3)
+top_department = instacart %>%
+  group_by(department) %>%
+  summarize(n = n()) %>%
+  arrange(desc(n)) %>%
+  head(5)
 
-ny_noaa_sample_id = 
-  ny_noaa %>%
-  distinct(id) %>%
-  sample_n(15)
+product_list = instacart %>%
+  filter(department %in% top_department$department) %>%
+  group_by(department, product_name) %>%
+  summarize(n = n()) %>%
+  group_by(department) %>%
+  top_n(n = 5)
 
-ny_noaa_sample = 
-  ny_noaa %>%
-  filter(id %in% ny_noaa_sample_id$id)
+instacart_sample = instacart %>%
+  filter(product_name %in% product_list$product_name)
 
-
-ny_noaa_sample %>%
-  filter(prcp != 0, !is.na(prcp)) %>% 
-  group_by(id) %>%
-  plot_ly(y = ~prcp, color = ~id, type = "box", colors = "Set2")
-  
+product_list %>%
+  mutate(product_name = fct_reorder(product_name, n)) %>%
+  plot_ly(x = ~product_name, y = ~n, color = ~product_name, type = "bar") %>%
+  layout(yaxis = list(title = 'Number of orders'))
 ```
 
 
-A random sample of 10 NY weather stations were selected. Boxplots wer constructed to observe the distribution of precipitation recorded at each station. Observations with missing precipitation data or prcp = 0 were filtered out to display only days when it rained. 
-
+Boxplot of hour of day of when products were bought per day of week:
 
 ```{r}
-
+instacart %>%
+  mutate(order_dow = factor(order_dow),
+         order_dow = recode(order_dow, "0" = "Sun", "1" = "Mon", "2" = "Tues", 
+                            "3" = "Wed", "4" = "Thurs", "5" = "Fri", "6" = "Sat")
+  ) %>%
+  plot_ly(y = ~order_hour_of_day, color = ~order_dow, type = "box") %>%
+  layout(yaxis = list(title = "Hour of day"))
 ```
-
-
 
 
 
