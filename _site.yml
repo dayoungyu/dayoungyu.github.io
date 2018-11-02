@@ -1,16 +1,18 @@
-name: "Yay internet!"
+name: "Rebekah's website"
 output_dir: "."
 navbar:
   title: "Home"
   right:
     - text: "About"
       href: about.html
-    - text: Dashboard
-      href: dashboard_template.html
     - icon: fa-envelope fa-lg
-      href: mailto:<dry2115@cumc.columbia.edu>
+      href: mailto:dry2115@cumc.columbia.edu
     - icon: fa-github fa-lg
       href: http://github.com/dayoungyu/
+      menu:
+      - text: Dashboard
+        href: dashboard_template.html
+
 output:
   html_document:
     theme: flatly
