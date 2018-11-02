@@ -1,5 +1,5 @@
 ---
-title: "plotly"
+title: "Code and plotly charts for the flexdashboard"
 output: html_document
 ---
 
@@ -9,7 +9,7 @@ library(p8105.datasets)
 library(plotly)
 
 knitr::opts_chunk$set(
-  fig.width = 8,
+  fig.width = 20,
   fig.asp = .6,
   out.width = "100%"
 )
